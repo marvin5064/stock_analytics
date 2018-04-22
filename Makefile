@@ -8,3 +8,6 @@ run: build
 	@./$(APPNAME)
 test:
 	@go test
+dep:
+	@dep ensure -update
+	 
