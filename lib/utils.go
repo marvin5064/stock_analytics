@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ func main() {
 		Get("https://www.alphavantage.co/query").
 		Param("function", "TIME_SERIES_DAILY").
 		Param("symbol", "0941.hk").
-		Param("apikey", "H6I7QGO4NATSFBXQ").
+		Param("apikey", "demo").
 		End()
 	if errs != nil {
 		fmt.Println(errs)
