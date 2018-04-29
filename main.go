@@ -2,13 +2,17 @@ package main
 
 import (
 	"github.com/marvin5064/stock-analytics/lib/logger"
-	"github.com/parnurzeal/gorequest"
+	"github.com/marvin5064/stock-analytics/lib/stockfetch"
 	"github.com/spf13/viper"
 )
 
-func main() {
-	defer logger.Sync()
+type Server struct {
+	stockFetchManager stockfetch.Manager
+}
 
+func main() {
+	srv := &Server{}
+	defer logger.Sync()
 	viper.SetConfigType("json")
 	viper.AddConfigPath("./config/")
 	err := viper.ReadInConfig()
@@ -20,14 +24,16 @@ func main() {
 	if apikey != "" {
 		logger.Info("successfully loaded api key from config")
 	}
-	resp, body, errs := gorequest.New().
-		Get("https://www.alphavantage.co/query").
-		Param("function", "TIME_SERIES_DAILY").
-		Param("symbol", "0941.hk").
-		Param("apikey", apikey).
-		End()
-	if errs != nil {
-		logger.Error(errs)
+
+	url := viper.GetString("url")
+	if url != "" {
+		logger.Info("successfully loaded url from config")
 	}
-	logger.Info(resp, body)
+
+	srv.stockFetchManager = stockfetch.New(url, apikey)
+	data, err := srv.stockFetchManager.GetData("0941.hk")
+	if err != nil {
+		logger.Error(err)
+	}
+	logger.Info(data)
 }
