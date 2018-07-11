@@ -12,5 +12,8 @@ func (m *manager) GetData(symbol string) (string, error) {
 		Param("apikey", m.apiKey).
 		End()
 
-	return body, fmt.Errorf("%v", errs)
+	if len(errs) != 0 {
+		return "", fmt.Errorf("%v", errs)
+	}
+	return body, nil
 }
