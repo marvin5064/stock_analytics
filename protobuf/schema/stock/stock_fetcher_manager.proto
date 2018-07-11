@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+message StockPriceRequest {
+    string symbol = 1;
+}
+
+message StockPriceResponse {
+    string prices = 1;
+}
+
+service StockFetchManager {
+	rpc GetStockPrice(StockPriceRequest)returns (StockPriceResponse) {
+        option (google.api.http) = {
+			get: "/api/v1/get_stock_price"
+		};
+    }
+}
