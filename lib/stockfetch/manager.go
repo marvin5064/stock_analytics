@@ -9,6 +9,7 @@ type manager struct {
 	apiKey    string
 	requester *gorequest.SuperAgent
 }
+
 type Manager interface {
 	GetData(symbol string) (string, error)
 }
