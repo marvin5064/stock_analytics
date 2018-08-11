@@ -47,6 +47,9 @@ func parseDataReturn(body string) (*stock.StockPriceResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("dataReturned", dataReturned)
-	return nil, nil
+	grpcReturn := &stock.StockPriceResponse{
+		Symbol: dataReturned.Metadata.Symbol,
+	}
+
+	return grpcReturn, nil
 }

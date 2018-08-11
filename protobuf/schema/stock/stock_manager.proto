@@ -8,8 +8,7 @@ message StockPriceRequest {
 
 message StockPriceResponse {
     string symbol = 1;
-    // time to price
-    map<string, StockPrice> prices = 2;
+    repeated StockPrice prices = 2;
 }
 
 message StockPrice{
@@ -18,6 +17,7 @@ message StockPrice{
     double Low = 3;
     double Close = 4;
     uint64 volumn = 5;
+    uint64 time = 6;
 }
 
 service StockManager {
