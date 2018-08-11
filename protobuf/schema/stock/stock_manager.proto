@@ -21,7 +21,7 @@ message StockPrice{
 }
 
 service StockManager {
-	rpc GetStockPrice(StockPriceRequest)returns (StockPriceResponse) {
+	rpc GetStockPrices(StockPriceRequest)returns (StockPriceResponse) {
         option (google.api.http) = {
 			get: "/api/v1/get_stock_price"
 		};

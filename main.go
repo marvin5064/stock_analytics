@@ -4,14 +4,16 @@ import (
 	"github.com/marvin5064/stock-analytics/lib/logger"
 	"github.com/marvin5064/stock-analytics/lib/stockfetch"
 	"github.com/spf13/viper"
+	"google.golang.org/grpc"
 )
 
 type Server struct {
+	grpcSrv           *grpc.Server
 	stockFetchManager stockfetch.Manager
 }
 
 func main() {
-	srv := &Server{}
+	srv := &Server{grpcSrv: grpc.NewServer()}
 	defer logger.Sync()
 	viper.SetConfigType("json")
 	viper.AddConfigPath("./config/")
@@ -36,4 +38,7 @@ func main() {
 		logger.Error(err)
 	}
 	logger.Info(data)
+
+	go RunGrpcServer(srv, "", 8080)
+
 }

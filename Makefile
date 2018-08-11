@@ -9,6 +9,7 @@ run: build
 test:
 	@go test
 dep:
+	@dep ensure
 	@dep ensure -update
 protos:
 	@protoc --proto_path=protobuf/schema \

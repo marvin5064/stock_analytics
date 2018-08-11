@@ -29,18 +29,18 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 
 var (
-	filter_StockManager_GetStockPrice_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_StockManager_GetStockPrices_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_StockManager_GetStockPrice_0(ctx context.Context, marshaler runtime.Marshaler, client StockManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_StockManager_GetStockPrices_0(ctx context.Context, marshaler runtime.Marshaler, client StockManagerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq StockPriceRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_StockManager_GetStockPrice_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_StockManager_GetStockPrices_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetStockPrice(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetStockPrices(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
@@ -83,7 +83,7 @@ func RegisterStockManagerHandler(ctx context.Context, mux *runtime.ServeMux, con
 // "StockManagerClient" to call the correct interceptors.
 func RegisterStockManagerHandlerClient(ctx context.Context, mux *runtime.ServeMux, client StockManagerClient) error {
 
-	mux.Handle("GET", pattern_StockManager_GetStockPrice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_StockManager_GetStockPrices_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		if cn, ok := w.(http.CloseNotifier); ok {
@@ -101,14 +101,14 @@ func RegisterStockManagerHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_StockManager_GetStockPrice_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_StockManager_GetStockPrices_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_StockManager_GetStockPrice_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_StockManager_GetStockPrices_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -116,9 +116,9 @@ func RegisterStockManagerHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_StockManager_GetStockPrice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "get_stock_price"}, ""))
+	pattern_StockManager_GetStockPrices_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "get_stock_price"}, ""))
 )
 
 var (
-	forward_StockManager_GetStockPrice_0 = runtime.ForwardResponseMessage
+	forward_StockManager_GetStockPrices_0 = runtime.ForwardResponseMessage
 )
