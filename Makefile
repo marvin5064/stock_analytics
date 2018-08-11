@@ -11,8 +11,7 @@ test:
 	@go vet $(PACKAGE_DIRS)
 	@go test $(PACKAGE_DIRS) -race -coverprofile=cover.out -covermode=atomic
 dep:
-	@dep ensure
-	@dep ensure -update
+	@glide up -v
 protos:
 	@protoc --proto_path=protobuf/schema \
 			-I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
