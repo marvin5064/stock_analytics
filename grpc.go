@@ -28,5 +28,6 @@ func RunGrpcServer(srv *Server, host string, port int) {
 func (s *Server) GetStockPrices(
 	ctx context.Context,
 	request *stock.StockPriceRequest) (*stock.StockPriceResponse, error) {
+	logger.Info("processing GetStockPrices", request)
 	return s.stockFetchManager.GetData(request)
 }
