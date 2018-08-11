@@ -3,6 +3,8 @@ package stockfetch
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
+	"time"
 
 	stock "github.com/marvin5064/stock-analytics/protobuf/stock"
 )
@@ -49,7 +51,49 @@ func parseDataReturn(body string) (*stock.StockPriceResponse, error) {
 	}
 	grpcReturn := &stock.StockPriceResponse{
 		Symbol: dataReturned.Metadata.Symbol,
+		Prices: []*stock.StockPrice{},
+	}
+
+	for k, v := range dataReturned.TimeSeriesPrices {
+		convertedPrice, err := convertPriceData(k, v)
+		if err != nil {
+			return nil, err
+		}
+		grpcReturn.Prices = append(grpcReturn.Prices, convertedPrice)
 	}
 
 	return grpcReturn, nil
+}
+
+func convertPriceData(timeDate string, price AlphavantageDailyPrice) (*stock.StockPrice, error) {
+	var err error
+	stockPrice := &stock.StockPrice{}
+	stockPrice.Close, err = strconv.ParseFloat(price.Close, 64)
+	if err != nil {
+		return nil, err
+	}
+	stockPrice.High, err = strconv.ParseFloat(price.High, 64)
+	if err != nil {
+		return nil, err
+	}
+	stockPrice.Low, err = strconv.ParseFloat(price.Low, 64)
+	if err != nil {
+		return nil, err
+	}
+	stockPrice.Open, err = strconv.ParseFloat(price.Open, 64)
+	if err != nil {
+		return nil, err
+	}
+	stockPrice.Volume, err = strconv.ParseUint(price.Volume, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	parsedTime, err := time.Parse("2006-01-02", timeDate)
+	if err != nil {
+		return nil, err
+	}
+	stockPrice.Time = uint64(parsedTime.Unix())
+
+	return stockPrice, nil
 }

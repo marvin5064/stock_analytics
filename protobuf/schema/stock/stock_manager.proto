@@ -16,7 +16,7 @@ message StockPrice{
     double High = 2;
     double Low = 3;
     double Close = 4;
-    uint64 volumn = 5;
+    uint64 volume = 5;
     uint64 time = 6;
 }
 

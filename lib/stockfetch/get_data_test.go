@@ -43,7 +43,7 @@ var _ = Describe("#parseDataReturn", func() {
 			It("should return", func() {
 				rec, err := parseDataReturn(input)
 				Expect(err).To(BeNil())
-				Expect(rec).To(BeNil())
+				Expect(len(rec.GetPrices())).To(Equal(2))
 			})
 		})
 	})
