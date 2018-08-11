@@ -28,6 +28,20 @@ type AlphavantageDailyPrice struct {
 	Volume string `json:"5. volume"`
 }
 
+type SortableStockPriceList []*stock.StockPrice
+
+func (l SortableStockPriceList) Len() int {
+	return len(l)
+}
+func (l SortableStockPriceList) Swap(i, j int) {
+	l[i], l[j] = l[j], l[i]
+}
+
+// latest to old
+func (l SortableStockPriceList) Less(i, j int) bool {
+	return l[i].GetTime() > l[j].GetTime()
+}
+
 func (m *manager) GetData(request *stock.StockPriceRequest) (*stock.StockPriceResponse, error) {
 	_, body, errs := m.requester.
 		Get("https://www.alphavantage.co/query").
@@ -51,17 +65,17 @@ func parseDataReturn(body string) (*stock.StockPriceResponse, error) {
 	}
 	grpcReturn := &stock.StockPriceResponse{
 		Symbol: dataReturned.Metadata.Symbol,
-		Prices: []*stock.StockPrice{},
 	}
 
+	var sortableConvertedPrices SortableStockPriceList
 	for k, v := range dataReturned.TimeSeriesPrices {
 		convertedPrice, err := convertPriceData(k, v)
 		if err != nil {
 			return nil, err
 		}
-		grpcReturn.Prices = append(grpcReturn.Prices, convertedPrice)
+		sortableConvertedPrices = append(sortableConvertedPrices, convertedPrice)
 	}
-
+	grpcReturn.Prices = sortableConvertedPrices
 	return grpcReturn, nil
 }
 

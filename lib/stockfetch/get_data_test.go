@@ -44,6 +44,7 @@ var _ = Describe("#parseDataReturn", func() {
 				rec, err := parseDataReturn(input)
 				Expect(err).To(BeNil())
 				Expect(len(rec.GetPrices())).To(Equal(2))
+				Expect(rec.GetPrices()[0].GetTime() > rec.GetPrices()[0].GetTime()).To(BeTrue())
 			})
 		})
 	})
