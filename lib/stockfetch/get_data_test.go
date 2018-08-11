@@ -8,7 +8,6 @@ import (
 var _ = Describe("#parseDataReturn", func() {
 	var (
 		input string
-		err   error
 	)
 	Describe("#DrawShape", func() {
 		BeforeEach(func() {
@@ -44,7 +43,7 @@ var _ = Describe("#parseDataReturn", func() {
 			It("should return", func() {
 				rec, err := parseDataReturn(input)
 				Expect(err).To(BeNil())
-				Expect(mgr.GetImage()).To(Equal(image))
+				Expect(rec).To(BeNil())
 			})
 		})
 	})
