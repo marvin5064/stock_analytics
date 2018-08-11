@@ -1,6 +1,10 @@
 package main
 
 import (
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/marvin5064/stock-analytics/lib/logger"
 	"github.com/marvin5064/stock-analytics/lib/stockfetch"
 	"github.com/spf13/viper"
@@ -10,10 +14,16 @@ import (
 type Server struct {
 	grpcSrv           *grpc.Server
 	stockFetchManager stockfetch.Manager
+	quit              chan os.Signal
 }
 
 func main() {
-	srv := &Server{grpcSrv: grpc.NewServer()}
+	srv := &Server{
+		grpcSrv: grpc.NewServer(),
+		quit:    make(chan os.Signal),
+	}
+	srv.sigtermHandler()
+
 	defer logger.Sync()
 	viper.SetConfigType("json")
 	viper.AddConfigPath("./config/")
@@ -33,12 +43,14 @@ func main() {
 	}
 
 	srv.stockFetchManager = stockfetch.New(url, apikey)
-	data, err := srv.stockFetchManager.GetData("0941.hk")
-	if err != nil {
-		logger.Error(err)
-	}
-	logger.Info(data)
 
-	go RunGrpcServer(srv, "", 8080)
+	go RunGrpcServer(srv, viper.GetString("grpc.hostname"), viper.GetInt("grpc.port"))
+	<-srv.quit
+	srv.grpcSrv.GracefulStop()
+	logger.Info("Server Closed Gracefully!")
+}
 
+func (s *Server) sigtermHandler() {
+	signal.Notify(s.quit, syscall.SIGTERM)
+	signal.Notify(s.quit, syscall.SIGINT)
 }

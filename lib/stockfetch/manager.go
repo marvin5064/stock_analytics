@@ -1,6 +1,7 @@
 package stockfetch
 
 import (
+	stock "github.com/marvin5064/stock-analytics/protobuf/stock"
 	"github.com/parnurzeal/gorequest"
 )
 
@@ -11,7 +12,7 @@ type manager struct {
 }
 
 type Manager interface {
-	GetData(symbol string) (string, error)
+	GetData(request *stock.StockPriceRequest) (*stock.StockPriceResponse, error)
 }
 
 func New(url, apiKey string) Manager {

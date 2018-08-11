@@ -1,5 +1,6 @@
 # Makefile
 APPNAME =`basename ${PWD}`
+PACKAGE_DIRS=`go list -e ./... | egrep -v "binary_output_dir|.git|mocks"`
 
 .PHONY: build run test protos
 build:
@@ -7,7 +8,8 @@ build:
 run: build
 	@./$(APPNAME)
 test:
-	@go test
+	@go vet $(PACKAGE_DIRS)
+	@go test $(PACKAGE_DIRS) -race -coverprofile=cover.out -covermode=atomic
 dep:
 	@dep ensure
 	@dep ensure -update
