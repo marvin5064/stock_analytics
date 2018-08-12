@@ -11,7 +11,7 @@ cp config/config.sample.json config/config.json
 make run
 ```
 
-## check out put
+## check output
 make sure you have:
 ```
 go get github.com/fullstorydev/grpcurl
