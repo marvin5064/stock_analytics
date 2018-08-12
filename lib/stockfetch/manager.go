@@ -1,7 +1,7 @@
 package stockfetch
 
 import (
-	stock "github.com/marvin5064/stock-analytics/protobuf/stock"
+	stock "github.com/stocks-playground/stock-analytics/protobuf/stock"
 	"github.com/parnurzeal/gorequest"
 )
 

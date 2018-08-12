@@ -1,4 +1,4 @@
-package: github.com/marvin5064/stock-analytics
+package: github.com/stocks-playground/stock-analytics
 import:
 - package: github.com/golang/protobuf
   version: ^1.1.0

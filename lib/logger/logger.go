@@ -3,7 +3,7 @@ package logger
 import (
 	"strings"
 
-	"github.com/marvin5064/stock-analytics/lib/utils"
+	"github.com/stocks-playground/stock-analytics/lib/utils"
 	"go.uber.org/zap"
 )
 

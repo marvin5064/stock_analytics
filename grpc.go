@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/marvin5064/stock-analytics/lib/logger"
-	stock "github.com/marvin5064/stock-analytics/protobuf/stock"
+	"github.com/stocks-playground/stock-analytics/lib/logger"
+	stock "github.com/stocks-playground/stock-analytics/protobuf/stock"
 	"google.golang.org/grpc/reflection"
 )
 

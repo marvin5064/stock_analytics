@@ -5,8 +5,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/marvin5064/stock-analytics/lib/logger"
-	"github.com/marvin5064/stock-analytics/lib/stockfetch"
+	"github.com/stocks-playground/stock-analytics/lib/logger"
+	"github.com/stocks-playground/stock-analytics/lib/stockfetch"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 )

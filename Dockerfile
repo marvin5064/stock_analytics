@@ -3,7 +3,7 @@ FROM golang:alpine
 
 # env setup for reusebility
 ENV APP_NAME=stock-analytics
-ENV WORKING_DIR=$GOPATH/src/github.com/marvin5064/$APP_NAME
+ENV WORKING_DIR=$GOPATH/src/github.com/stocks-playground/$APP_NAME
 
 # Set the working directory to golang working space
 WORKDIR $WORKING_DIR

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	stock "github.com/marvin5064/stock-analytics/protobuf/stock"
+	stock "github.com/stocks-playground/stock-analytics/protobuf/stock"
 )
 
 type AlphavantageQueryReturn struct {
