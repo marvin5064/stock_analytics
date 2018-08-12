@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/stocks-playground/stock-analytics.svg?branch=master)](https://travis-ci.com/stocks-playground/stock-analytics)
+[![Build Status](https://travis-ci.org/stocks-playground/stock-analytics.svg?branch=master)](https://travis-ci.org/stocks-playground/stock-analytics)
 # stock-analytics
 
 ## prerequisite
