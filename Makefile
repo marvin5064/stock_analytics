@@ -13,8 +13,8 @@ test:
 dep:
 	@glide up -v
 protos:
-	@protoc --proto_path=protobuf/schema \
+	@protoc --proto_path=protobuf/proto-schema \
 			-I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 			--go_out=plugins=grpc:protobuf \
 			--grpc-gateway_out=logtostderr=true:protobuf \
-			protobuf/schema/stock/*.proto
+			protobuf/proto-schema/stock/*.proto
