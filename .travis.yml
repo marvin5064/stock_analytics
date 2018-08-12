@@ -6,7 +6,7 @@ before_install:
     -K $encrypted_113198fb8f0a_key 
     -iv $encrypted_113198fb8f0a_iv 
     -in github_deploy_key.enc 
-    -out ~\/github_deploy_key 
+    -out github_deploy_key 
     -d
   - chmod 600 github_deploy_key
   - eval $(ssh-agent -s)
