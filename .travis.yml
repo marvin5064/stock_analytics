@@ -1,24 +1,16 @@
 language: go
-
 before_install:
-  - >-
-    openssl aes-256-cbc 
-    -K $encrypted_113198fb8f0a_key 
-    -iv $encrypted_113198fb8f0a_iv 
-    -in github_deploy_key.enc 
-    -out github_deploy_key 
-    -d
-  - chmod 600 github_deploy_key
-  - eval $(ssh-agent -s)
-  - ssh-add github_deploy_key
-
+- openssl aes-256-cbc -K $encrypted_113198fb8f0a_key -iv $encrypted_113198fb8f0a_iv
+  -in github_deploy_key.enc -out github_deploy_key -d
+- chmod 600 github_deploy_key
+- eval $(ssh-agent -s)
+- ssh-add github_deploy_key
 go:
-  - master
+- master
 script: make test
-
 notifications:
   email:
     recipients:
-      - marvin5064@gmail.com
+    - marvin5064@gmail.com
     on_success: never
     on_failure: always
