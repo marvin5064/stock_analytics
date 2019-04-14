@@ -26,7 +26,8 @@ imports:
   - hcl/ast
   - hcl/parser
   - hcl/printer
-  - hcl/scanner
+  - hcl/sc
+  
   - hcl/strconv
   - hcl/token
   - json/parser
